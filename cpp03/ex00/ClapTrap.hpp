@@ -1,39 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Fixed.hpp                                          :+:      :+:    :+:   */
+/*   ClapTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilbert <igilbert@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/02 12:56:52 by igilbert          #+#    #+#             */
-/*   Updated: 2025/10/03 12:04:58 by igilbert         ###   ########.fr       */
+/*   Created: 2025/10/03 11:55:21 by igilbert          #+#    #+#             */
+/*   Updated: 2025/10/03 12:23:37 by igilbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FIXED_HPP
-#define FIXED_HPP
+#ifndef CLAPTRAP_H
+#define CLAPTRAP_H
 
 #include <iostream>
 #include <string>
 
-class Fixed {
+class ClapTrap {
 	private:
-		int raw;
-		static const int fracBits = 8;
+		std::string name;
+		int hp = 10;
+		int energy = 10;
+		int atk = 0;
+	
 	public:
-		Fixed();
-		Fixed(const Fixed &other);
-		Fixed &operator = (const Fixed &other){
-			std::cout << "Copy assignment operator called" << std::endl;
+		ClapTrap(std::string name);
+		ClapTrap(ClapTrap &other) : name(other.name), hp(other.hp), energy(other.energy), atk(other.atk) {
+		}
+		ClapTrap &operator=(ClapTrap &other) {
 			if (this != &other) {
-				raw = other.raw;
+				name = other.name;
+				hp = other.hp;
+				energy = other.energy;
+				atk = other.atk;
 			}
 			return (*this);
 		}
-		~Fixed();
+		~ClapTrap();
 		
-		int getRawBits( void ) const;
-		void setRawBits( int const raw );
+		void attack(const std::string& target);
+		void takeDamage(unsigned int amount);
+		void beRepaired(unsigned int amount);
 };
 
 #endif
