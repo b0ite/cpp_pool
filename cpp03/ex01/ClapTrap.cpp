@@ -6,7 +6,7 @@
 /*   By: igilbert <igilbert@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 11:55:23 by igilbert          #+#    #+#             */
-/*   Updated: 2025/10/03 14:01:51 by igilbert         ###   ########.fr       */
+/*   Updated: 2025/10/03 14:55:44 by igilbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <iostream>
 
 ClapTrap::ClapTrap(const std::string& name) {
-	std::cout << name << " has been summoned !\n";
+	std::cout << "the ClapTrap "<< name << " has been summoned !\n";
 	this->name = name;
 	hp = 10;
 	atk = 0;
@@ -23,7 +23,7 @@ ClapTrap::ClapTrap(const std::string& name) {
 }
 
 ClapTrap::~ClapTrap() {
-	std::cout << name << " has been destroyed !\n";
+	std::cout << name << " the ClapTrap has been destroyed !\n";
 }
 
 void ClapTrap::attack(const std::string& target) {
