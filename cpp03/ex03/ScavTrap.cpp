@@ -6,7 +6,7 @@
 /*   By: igilbert <igilbert@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 14:06:04 by igilbert          #+#    #+#             */
-/*   Updated: 2025/10/03 16:42:23 by igilbert         ###   ########.fr       */
+/*   Updated: 2025/10/03 16:59:23 by igilbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 #include <iostream>
 
 ScavTrap::ScavTrap(const std::string name) : ClapTrap(name) {
-	setAttack(20);
-	setHealth(100);
-	setEnergy(50);
+	setAttack(SCAV_ATTACK);
+	setHealth(SCAV_HP);
+	setEnergy(SCAV_ENERGY);
 	std::cout << "The ScavTrap " << getName() << " has been summoned !\n";
 }
 

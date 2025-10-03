@@ -6,38 +6,59 @@
 /*   By: igilbert <igilbert@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 11:55:25 by igilbert          #+#    #+#             */
-/*   Updated: 2025/10/03 15:04:59 by igilbert         ###   ########.fr       */
+/*   Updated: 2025/10/03 15:31:05 by igilbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "FragTrap.hpp"
 #include "ClapTrap.hpp"
-#include <string>
-#include <iostream>
-#include "ScavTrap.hpp"
 #include <iostream>
 
 int main() {
     std::cout << "=== Static construction test ===\n";
     {
-        ScavTrap s("StaticScav");
+        FragTrap s("StaticFrag");
         s.attack("TargetA");
         s.beRepaired(5);
+        s.takeDamage(3);
+        s.highFivesGuys();
+    }
+
+    std::cout << "\n=== Copy & assignment ===\n";
+    {
+        FragTrap original("OriginalFrag");
+        original.attack("TargetX");
+        FragTrap copy(original);
+        FragTrap assigned("AssignedFrag");
+        assigned = original;
+        copy.attack("CopyTarget");
+        assigned.highFivesGuys();
     }
 
     std::cout << "\n=== Dynamic polymorphism test ===\n";
     {
-        ClapTrap *p = new ScavTrap("DynScav");
-        p->attack("TargetB");
-        p->takeDamage(12);
+        ClapTrap *p = new FragTrap("DynFrag");
+        p->attack("TargetDyn");
+        p->takeDamage(20);
         delete p;
     }
 
-    std::cout << "\n=== Death and behaviour after 0 HP ===\n";
+    std::cout << "\n=== Energy depletion test ===\n";
     {
-        ScavTrap fragile("Fragile");
+        FragTrap e("EnergyFrag");
+        for (int i = 0; i < 10; ++i) {
+            std::cout << "Attempt attack #" << (i + 1) << '\n';
+            e.attack("DrainTarget");
+        }
+    }
+
+    std::cout << "\n=== Death & post-death behavior ===\n";
+    {
+        FragTrap fragile("Fragile");
         fragile.takeDamage(1000);
         fragile.attack("Nobody");
         fragile.beRepaired(10);
+        fragile.highFivesGuys();
     }
 
     return 0;

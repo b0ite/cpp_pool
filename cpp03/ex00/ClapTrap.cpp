@@ -6,7 +6,7 @@
 /*   By: igilbert <igilbert@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 11:55:23 by igilbert          #+#    #+#             */
-/*   Updated: 2025/10/03 14:01:51 by igilbert         ###   ########.fr       */
+/*   Updated: 2025/10/03 15:07:57 by igilbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void ClapTrap::beRepaired(unsigned int amount) {
 		return ;
 	}
 	if (energy > 0) {
-		std::cout << name << " is fixing itself... " << amount << " health points regained ! (health: " << hp << ")\n";
 		hp += amount;
+		std::cout << name << " is fixing itself... " << amount << " health points regained ! (health: " << hp << ")\n";
 		energy--;
 	}
 	else {

@@ -1,37 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
+/*   DiamondTrap.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilbert <igilbert@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/03 14:06:06 by igilbert          #+#    #+#             */
-/*   Updated: 2025/10/03 15:01:51 by igilbert         ###   ########.fr       */
+/*   Created: 2025/10/03 15:37:24 by igilbert          #+#    #+#             */
+/*   Updated: 2025/10/03 16:35:18 by igilbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCAVTRAP_HPP
-#define SCAVTRAP_HPP
+#ifndef DIAMONDTRAP_HPP
+#define DIAMONDTRAP_HPP
 
+#include "FragTrap.hpp"
+#include "ScavTrap.hpp"
 #include <string>
 #include <iostream>
-#include "ClapTrap.hpp"
 
-class ScavTrap : public ClapTrap {
+class DiamondTrap : public FragTrap, public ScavTrap {
+	private:
+		std::string name;
 	public:
-		ScavTrap(const std::string name);
-		ScavTrap(const ScavTrap& other) : ClapTrap(other) {
-			std::cout << "ScavTrap copy constructed\n";
-		}
-		ScavTrap &operator=(const ScavTrap &other) {
-			if (this != &other) {
-				ClapTrap::operator=(other);
-			}
-			return (*this);
-		}
-		~ScavTrap();
-		void attack(const std::string& target);
-		void guardGate();
+		DiamondTrap(const std::string &name);
+		DiamondTrap(const DiamondTrap &other);
+		DiamondTrap &operator=(const DiamondTrap &other);
+		~DiamondTrap();
+
+		void attack( const std::string &target );
+		void whoAmI();
 };
 
 #endif

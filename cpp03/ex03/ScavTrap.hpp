@@ -6,7 +6,7 @@
 /*   By: igilbert <igilbert@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 14:06:06 by igilbert          #+#    #+#             */
-/*   Updated: 2025/10/03 15:01:51 by igilbert         ###   ########.fr       */
+/*   Updated: 2025/10/03 16:58:47 by igilbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,12 @@
 #include <iostream>
 #include "ClapTrap.hpp"
 
-class ScavTrap : public ClapTrap {
+class ScavTrap : virtual public ClapTrap {
+	protected:
+		static const int SCAV_HP = 100;
+        static const int SCAV_ENERGY = 50;
+        static const int SCAV_ATTACK = 20;
+
 	public:
 		ScavTrap(const std::string name);
 		ScavTrap(const ScavTrap& other) : ClapTrap(other) {
