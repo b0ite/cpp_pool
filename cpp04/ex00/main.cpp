@@ -6,7 +6,7 @@
 /*   By: igilbert <igilbert@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 12:55:39 by igilbert          #+#    #+#             */
-/*   Updated: 2025/10/04 14:08:56 by igilbert         ###   ########.fr       */
+/*   Updated: 2025/10/04 14:12:52 by igilbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ int main()
     delete meta;
     delete j;
     delete i;
-return 0;
+
+	return 0;
 }
