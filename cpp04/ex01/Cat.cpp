@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Cat.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilbert <igilbert@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/04 12:55:39 by igilbert          #+#    #+#             */
-/*   Updated: 2025/10/29 15:25:42 by igilbert         ###   ########.fr       */
+/*   Created: 2025/10/04 12:55:49 by igilbert          #+#    #+#             */
+/*   Updated: 2025/10/29 15:57:39 by igilbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "WrongAnimal.hpp"
-#include "Dog.hpp"
-#include "WrongCat.hpp"
+#include "Cat.hpp"
+#include <string>
+#include <iostream>
 
-int main()
-{
-	const Animal* meta = new Animal();
-	const Animal* j = new Dog();
-	const WrongAnimal* i = new WrongCat();
-	
-	std::cout << j->getType() << " " << std::endl;
-	std::cout << i->getType() << " " << std::endl;
-	
-	i->makeSound();
-	j->makeSound();
-	meta->makeSound();
+Cat::Cat() : Animal("Cat"), brain(new Brain()) {
+	std::cout << "Here comes the Cat !\n";
+}
 
-    delete meta;
-    delete j;
-    delete i;
+Cat::Cat(const Cat &other) : Animal(other), brain(new Brain) {
+	std::cout << "Here comes the Cat !\n";
+}
 
-	return 0;
+Cat::~Cat(){
+	std::cout << "The Cat is gone...\n";
+	delete brain;
+}
+
+void Cat::makeSound() const {
+	std::cout << "*meoooow meoooooooooow*\n";
 }

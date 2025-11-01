@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   WrongCat.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilbert <igilbert@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/04 12:55:39 by igilbert          #+#    #+#             */
-/*   Updated: 2025/10/29 15:25:42 by igilbert         ###   ########.fr       */
+/*   Created: 2025/10/04 12:55:34 by igilbert          #+#    #+#             */
+/*   Updated: 2025/10/04 14:10:29 by igilbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "WrongAnimal.hpp"
-#include "Dog.hpp"
 #include "WrongCat.hpp"
+#include <string>
+#include <iostream>
 
-int main()
-{
-	const Animal* meta = new Animal();
-	const Animal* j = new Dog();
-	const WrongAnimal* i = new WrongCat();
-	
-	std::cout << j->getType() << " " << std::endl;
-	std::cout << i->getType() << " " << std::endl;
-	
-	i->makeSound();
-	j->makeSound();
-	meta->makeSound();
+WrongCat::WrongCat() : WrongAnimal("WrongCat") {
+	std::cout << "Here comes the WrongCat !\n";
+}
 
-    delete meta;
-    delete j;
-    delete i;
+WrongCat::WrongCat(const WrongCat &other) : WrongAnimal(other) {
+	std::cout << "Here comes the WrongCat !\n";
+}
 
-	return 0;
+WrongCat::~WrongCat(){
+	std::cout << "The WrongCat is gone...\n";
+}
+
+void WrongCat::makeSound() const {
+	std::cout << "*meoooow meoooooooooow*\n";
 }

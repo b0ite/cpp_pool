@@ -1,35 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   brain.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilbert <igilbert@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/04 12:55:39 by igilbert          #+#    #+#             */
-/*   Updated: 2025/10/29 15:25:42 by igilbert         ###   ########.fr       */
+/*   Created: 2025/10/29 15:21:32 by igilbert          #+#    #+#             */
+/*   Updated: 2025/10/29 15:23:16 by igilbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "WrongAnimal.hpp"
-#include "Dog.hpp"
-#include "WrongCat.hpp"
+#ifndef BRAIN_HPP
+#define BRAIN_HPP
 
-int main()
-{
-	const Animal* meta = new Animal();
-	const Animal* j = new Dog();
-	const WrongAnimal* i = new WrongCat();
-	
-	std::cout << j->getType() << " " << std::endl;
-	std::cout << i->getType() << " " << std::endl;
-	
-	i->makeSound();
-	j->makeSound();
-	meta->makeSound();
+#include <string>
 
-    delete meta;
-    delete j;
-    delete i;
+class Brain {
+	std::string ideas[100];
+};
 
-	return 0;
-}
+#endif
