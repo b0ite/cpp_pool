@@ -1,38 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   WrongAnimal.cpp                                    :+:      :+:    :+:   */
+/*   AAnimal.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilbert <igilbert@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/04 12:54:54 by igilbert          #+#    #+#             */
+/*   Created: 2025/10/04 12:21:02 by igilbert          #+#    #+#             */
 /*   Updated: 2026/01/12 02:16:40 by igilbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "WrongAnimal.hpp"
+#include "AAnimal.hpp"
 #include <string>
 #include <iostream>
 
-WrongAnimal::WrongAnimal() {
-	std::cout << "Here comes the... The WrongAnimal...\n";
+AAnimal::AAnimal() {
+	std::cout << "Here comes the... The AAnimal...\n";
 }
-WrongAnimal::WrongAnimal(const std::string type) : type(type) {
-	std::cout << "Here comes the... The WrongAnimal of type " << type << " !\n";
-}
-
-WrongAnimal::WrongAnimal(const WrongAnimal &other) : type(other.type) {
-	std::cout << "Here comes the... The WrongAnimal...\n";
+AAnimal::AAnimal(const std::string& type) : type(type) {
+	std::cout << "Here comes the... The AAnimal of type " << type << " !\n";
 }
 
-WrongAnimal &WrongAnimal::operator=(const WrongAnimal &other) {
+AAnimal::AAnimal(const AAnimal &other) : type(other.type) {
+	std::cout << "Here comes the... The AAnimal...\n";
+}
+
+AAnimal &AAnimal::operator=(const AAnimal &other) {
 	if (this != &other) {
 		type = other.type;
 	}
 	return (*this);
 }
 
-WrongAnimal::~WrongAnimal() {
+AAnimal::~AAnimal() {
 	if (!type.empty()) {
 		std::cout << "The hunter got the " << type << "... I'm sorry...\n";
 	}
@@ -41,19 +41,10 @@ WrongAnimal::~WrongAnimal() {
 	}
 }
 
-void WrongAnimal::makeSound() const {
-	if (!type.empty()) {
-		std::cout << "You hear a noise... You think it\'s a " << type << "\n";
-	}
-	else {
-		std::cout << "You hear a noise but can't tell from which animal it is...\n";
-	}
-}
-
-std::string WrongAnimal::getType() const {
+std::string AAnimal::getType() const {
 	return (type);
 }
 
-void WrongAnimal::setType(std::string type) {
+void AAnimal::setType(const std::string& type) {
 	this->type = type;
 }

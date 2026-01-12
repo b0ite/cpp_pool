@@ -1,41 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.cpp                                            :+:      :+:    :+:   */
+/*   Cat.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilbert <igilbert@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/04 12:55:43 by igilbert          #+#    #+#             */
+/*   Created: 2025/10/04 12:55:49 by igilbert          #+#    #+#             */
 /*   Updated: 2026/01/12 02:28:14 by igilbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Dog.hpp"
+#include "Cat.hpp"
 #include <string>
 #include <iostream>
 
-Dog::Dog() : Animal("Dog"), brain(new Brain) {
-	std::cout << "Here comes the Dog !\n";
+Cat::Cat() : AAnimal("Cat"), brain(new Brain()) {
+	std::cout << "Here comes the Cat !\n";
 }
 
-Dog::Dog(const Dog &other) : Animal(other), brain(new Brain(*other.brain)) {
-	std::cout << "Here comes the Dog !\n";
+Cat::Cat(const Cat &other) : AAnimal(other), brain(new Brain(*other.brain)) {
+	std::cout << "Here comes the Cat !\n";
 }
 
-Dog &Dog::operator=(const Dog &other) {
+Cat &Cat::operator=(const Cat &other) {
 	if (this != &other) {
-		Animal::operator=(other);
+		AAnimal::operator=(other);
 		delete brain;
 		brain = new Brain(*other.brain);
 	}
 	return (*this);
 }
 
-Dog::~Dog(){
-	std::cout << "The Dog is gone...\n";
+Cat::~Cat(){
+	std::cout << "The Cat is gone...\n";
 	delete brain;
 }
 
-void Dog::makeSound() const {
-	std::cout << "*bark bark !!!*\n";
+void Cat::makeSound() const {
+	std::cout << "*meoooow meoooooooooow*\n";
 }

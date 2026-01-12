@@ -6,7 +6,7 @@
 /*   By: igilbert <igilbert@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 12:20:43 by igilbert          #+#    #+#             */
-/*   Updated: 2025/10/04 13:25:18 by igilbert         ###   ########.fr       */
+/*   Updated: 2026/01/12 02:16:40 by igilbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,7 @@ class Cat : public Animal {
 	public:
 		Cat();
 		Cat(const Cat &other);
-		Cat &operator=(const Cat &other) {
-			if (this != &other) {
-				Animal::operator=(other);
-			}
-			return (*this);
-		}
+		Cat &operator=(const Cat &other);
 		~Cat();
 
 		void makeSound() const;

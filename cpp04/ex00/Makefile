@@ -13,9 +13,14 @@ $(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -f $(OBJS)
+
+fclean: clean
+	rm -f $(TARGET)
 
 distclean: clean
 	rm -f *~
 
-.PHONY: all clean distclean
+re: fclean all
+
+.PHONY: all clean fclean distclean re

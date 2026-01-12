@@ -6,7 +6,7 @@
 /*   By: igilbert <igilbert@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 12:55:43 by igilbert          #+#    #+#             */
-/*   Updated: 2025/10/04 13:26:19 by igilbert         ###   ########.fr       */
+/*   Updated: 2026/01/12 02:16:40 by igilbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@ Dog::Dog() : Animal("Dog") {
 
 Dog::Dog(const Dog &other) : Animal(other) {
 	std::cout << "Here comes the Dog !\n";
+}
+
+Dog &Dog::operator=(const Dog &other) {
+	if (this != &other) {
+		Animal::operator=(other);
+	}
+	return (*this);
 }
 
 Dog::~Dog(){

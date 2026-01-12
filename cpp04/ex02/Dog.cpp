@@ -14,17 +14,17 @@
 #include <string>
 #include <iostream>
 
-Dog::Dog() : Animal("Dog"), brain(new Brain) {
+Dog::Dog() : AAnimal("Dog"), brain(new Brain) {
 	std::cout << "Here comes the Dog !\n";
 }
 
-Dog::Dog(const Dog &other) : Animal(other), brain(new Brain(*other.brain)) {
+Dog::Dog(const Dog &other) : AAnimal(other), brain(new Brain(*other.brain)) {
 	std::cout << "Here comes the Dog !\n";
 }
 
 Dog &Dog::operator=(const Dog &other) {
 	if (this != &other) {
-		Animal::operator=(other);
+		AAnimal::operator=(other);
 		delete brain;
 		brain = new Brain(*other.brain);
 	}

@@ -6,7 +6,7 @@
 /*   By: igilbert <igilbert@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 12:55:34 by igilbert          #+#    #+#             */
-/*   Updated: 2025/10/04 14:10:29 by igilbert         ###   ########.fr       */
+/*   Updated: 2026/01/12 02:10:13 by igilbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@ WrongCat::WrongCat() : WrongAnimal("WrongCat") {
 
 WrongCat::WrongCat(const WrongCat &other) : WrongAnimal(other) {
 	std::cout << "Here comes the WrongCat !\n";
+}
+
+WrongCat &WrongCat::operator=(const WrongCat &other) {
+	if (this != &other) {
+		WrongAnimal::operator=(other);
+	}
+	return (*this);
 }
 
 WrongCat::~WrongCat(){

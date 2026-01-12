@@ -6,7 +6,7 @@
 /*   By: igilbert <igilbert@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 12:55:29 by igilbert          #+#    #+#             */
-/*   Updated: 2025/10/04 14:09:46 by igilbert         ###   ########.fr       */
+/*   Updated: 2026/01/12 02:10:19 by igilbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,7 @@ class WrongCat : public WrongAnimal {
 	public:
 		WrongCat();
 		WrongCat(const WrongCat &other);
-		WrongCat &operator=(const WrongCat &other) {
-			if (this != &other) {
-				WrongAnimal::operator=(other);
-			}
-			return (*this);
-		}
+		WrongCat &operator=(const WrongCat &other);
 		~WrongCat();
 
 		void makeSound() const;

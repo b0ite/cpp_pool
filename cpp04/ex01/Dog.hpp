@@ -6,7 +6,7 @@
 /*   By: igilbert <igilbert@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 12:20:55 by igilbert          #+#    #+#             */
-/*   Updated: 2025/10/29 16:01:09 by igilbert         ###   ########.fr       */
+/*   Updated: 2026/01/12 01:43:11 by igilbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,7 @@ class Dog : public Animal {
 	public:
 		Dog();
 		Dog(const Dog &other);
-		Dog &operator=(const Dog &other) {
-			if (this != &other) {
-				Animal::operator=(other);
-				delete brain;
-				brain = new Brain(*other.brain);
-			}
-			return (*this);
-		}
+		Dog &operator=(const Dog &other);
 		~Dog();
 
 		void makeSound() const;

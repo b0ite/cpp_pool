@@ -6,7 +6,7 @@
 /*   By: igilbert <igilbert@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 12:54:54 by igilbert          #+#    #+#             */
-/*   Updated: 2026/01/12 02:41:25 by igilbert         ###   ########.fr       */
+/*   Updated: 2026/01/12 02:18:47 by igilbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 WrongAnimal::WrongAnimal() {
 	std::cout << "Here comes the... The WrongAnimal...\n";
 }
-WrongAnimal::WrongAnimal(const std::string& type) : type(type) {
+WrongAnimal::WrongAnimal(const std::string type) : type(type) {
 	std::cout << "Here comes the... The WrongAnimal of type " << type << " !\n";
 }
 
@@ -46,7 +46,7 @@ void WrongAnimal::makeSound() const {
 		std::cout << "You hear a noise... You think it\'s a " << type << "\n";
 	}
 	else {
-		std::cout << "You hear a noise but can't tell from which animal it is...\n";
+		std::cout << "You hear a noise but can't tell from which AAnimal it is...\n";
 	}
 }
 
@@ -54,6 +54,6 @@ std::string WrongAnimal::getType() const {
 	return (type);
 }
 
-void WrongAnimal::setType(const std::string& type) {
+void WrongAnimal::setType(std::string type) {
 	this->type = type;
 }

@@ -6,7 +6,7 @@
 /*   By: igilbert <igilbert@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 12:55:01 by igilbert          #+#    #+#             */
-/*   Updated: 2025/10/04 14:08:01 by igilbert         ###   ########.fr       */
+/*   Updated: 2026/01/12 02:41:25 by igilbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,13 @@ class WrongAnimal {
 		std::string type;
 	public:
 		WrongAnimal();
-		WrongAnimal(const std::string type);
+		WrongAnimal(const std::string& type);
 		WrongAnimal(const WrongAnimal &other);
-		WrongAnimal &operator=(const WrongAnimal &other) {
-			if (this != &other) {
-				type = other.type;
-			}
-			return (*this);
-		}
+		WrongAnimal &operator=(const WrongAnimal &other);
 		virtual ~WrongAnimal();
 
 		void makeSound() const;
-		void setType(std::string type);
+		void setType(const std::string& type);
 		std::string getType() const;
 };
 

@@ -6,7 +6,7 @@
 /*   By: igilbert <igilbert@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 12:21:02 by igilbert          #+#    #+#             */
-/*   Updated: 2025/10/29 15:30:25 by igilbert         ###   ########.fr       */
+/*   Updated: 2026/01/12 02:41:25 by igilbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,19 @@
 Animal::Animal() {
 	std::cout << "Here comes the... The Animal...\n";
 }
-Animal::Animal(const std::string type) : type(type) {
+Animal::Animal(const std::string& type) : type(type) {
 	std::cout << "Here comes the... The Animal of type " << type << " !\n";
 }
 
 Animal::Animal(const Animal &other) : type(other.type) {
 	std::cout << "Here comes the... The Animal...\n";
+}
+
+Animal &Animal::operator=(const Animal &other) {
+	if (this != &other) {
+		type = other.type;
+	}
+	return (*this);
 }
 
 Animal::~Animal() {
@@ -47,6 +54,6 @@ std::string Animal::getType() const {
 	return (type);
 }
 
-void Animal::setType(std::string type) {
+void Animal::setType(const std::string& type) {
 	this->type = type;
 }
