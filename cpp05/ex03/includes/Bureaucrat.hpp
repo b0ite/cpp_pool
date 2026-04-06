@@ -6,7 +6,7 @@
 /*   By: igilbert <igilbert@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/15 12:18:52 by igilbert          #+#    #+#             */
-/*   Updated: 2026/03/16 14:24:18 by igilbert         ###   ########.fr       */
+/*   Updated: 2026/04/06 16:17:11 by igilbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ class Bureaucrat {
 		void incrementGrade();
 		void decrementGrade();
 		void signForm(AForm &form);
+
+		void executeForm(AForm const & form);
 
 		class GradeTooLowException : public std::exception
 		{

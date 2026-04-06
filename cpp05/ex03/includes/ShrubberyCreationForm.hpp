@@ -6,7 +6,7 @@
 /*   By: igilbert <igilbert@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 13:29:56 by igilbert          #+#    #+#             */
-/*   Updated: 2026/03/16 14:10:45 by igilbert         ###   ########.fr       */
+/*   Updated: 2026/04/06 16:39:15 by igilbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define SHRUBBERYCREATIONFORM_HPP
 
 #include "AForm.hpp"
+#include "Bureaucrat.hpp"
 
 class Bureaucrat;
 
@@ -38,6 +39,11 @@ class ShrubberyCreationForm : public AForm {
 			virtual const char *what() const throw();
 		};
 		class GradeTooHighException : public std::exception
+		{
+		public:
+			virtual const char *what() const throw();
+		};
+		class FormNotSignedException : public std::exception
 		{
 		public:
 			virtual const char *what() const throw();

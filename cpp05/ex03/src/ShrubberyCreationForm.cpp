@@ -6,7 +6,7 @@
 /*   By: igilbert <igilbert@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 13:29:48 by igilbert          #+#    #+#             */
-/*   Updated: 2026/03/16 14:23:40 by igilbert         ###   ########.fr       */
+/*   Updated: 2026/04/06 16:26:28 by igilbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,29 @@ ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationF
 
 ShrubberyCreationForm::~ShrubberyCreationForm() {}
 
+
+
+std::string	ShrubberyCreationForm::getTarget(void)const
+{
+	return (this->_target);
+}
+
+std::ostream	&operator<<(std::ostream &o, ShrubberyCreationForm *a)
+{
+	o << "Form " << a->getName() <<
+	":\n\tsign-grade:\t" << a->getGradeToSign() <<
+	"\n\texec-grade:\t" << a->getGradeToExecute() <<
+	"\n\tis signed:\t" << a->getIsSigned() <<
+	std::endl;
+	return (o);
+}
+
 void ShrubberyCreationForm::execute(const Bureaucrat &executor) const {
 	if (!this->getIsSigned()) {
-		throw AForm::GradeTooLowException();
+		throw ShrubberyCreationForm::FormNotSignedException();
 	}
 	if (executor.getGrade() > this->getGradeToExecute()) {
-		throw AForm::GradeTooLowException();
+		throw ShrubberyCreationForm::GradeTooLowException();
 	}
 	std::ofstream file((this->getTarget() + "_shrubbery").c_str());
 	if (!file.is_open()) {
@@ -72,17 +89,14 @@ void ShrubberyCreationForm::execute(const Bureaucrat &executor) const {
 	file.close();
 }
 
-std::string	ShrubberyCreationForm::getTarget(void)const
-{
-	return (this->_target);
+const char *ShrubberyCreationForm::GradeTooLowException::what() const throw() {
+	return "Grade too low to execute the form. must be at least 137.";
 }
 
-std::ostream	&operator<<(std::ostream &o, ShrubberyCreationForm *a)
-{
-	o << "Form " << a->getName() <<
-	":\n\tsign-grade:\t" << a->getGradeToSign() <<
-	"\n\texec-grade:\t" << a->getGradeToExecute() <<
-	"\n\tis signed:\t" << a->getIsSigned() <<
-	std::endl;
-	return (o);
+const char *ShrubberyCreationForm::GradeTooHighException::what() const throw() {
+	return "Grade must be between 1 and 150.";
+}
+
+const char *ShrubberyCreationForm::FormNotSignedException::what() const throw() {
+	return "Form not signed.";
 }

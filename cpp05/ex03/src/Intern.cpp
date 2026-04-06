@@ -6,7 +6,7 @@
 /*   By: igilbert <igilbert@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:51:12 by igilbert          #+#    #+#             */
-/*   Updated: 2026/04/06 15:59:44 by igilbert         ###   ########.fr       */
+/*   Updated: 2026/04/06 16:45:51 by igilbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ Intern &Intern::operator=(const Intern &other) {
 	return *this;
 }
 
-Intern Form::*makeForm(const std::string &formName, const std::string &target) {
+AForm *Intern::makeForm(const std::string &formName, const std::string &target) {
 	std::string formNames[3] = {
 		"shrubbery creation",
 		"robotomy request",
 		"presidential pardon"
 	};
-	Form *forms[3] = {
+	AForm *forms[3] = {
 		new ShrubberyCreationForm(target),
 		new RobotomyRequestForm(target),
 		new PresidentialPardonForm(target)
@@ -50,6 +50,10 @@ Intern Form::*makeForm(const std::string &formName, const std::string &target) {
 		}
 		delete forms[i];
 	}
-	std::cout << "Intern cannot create " << formName << " form: Unknown form name" << std::endl;
+	throw UnknownFormException();
 	return nullptr;
+}
+
+const char *Intern::UnknownFormException::what() const throw() {
+	return "Unknown form name.";
 }
