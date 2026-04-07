@@ -1,5 +1,5 @@
-TARGET = ex01
-SRCS = src/Serializer.cpp src/main.cpp
+TARGET = ex02
+SRCS = src/main.cpp src/Base.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 CXX = c++
