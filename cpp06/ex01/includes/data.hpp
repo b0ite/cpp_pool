@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Serializer.hpp                                     :+:      :+:    :+:   */
+/*   data.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilbert <igilbert@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/07 18:17:30 by igilbert          #+#    #+#             */
-/*   Updated: 2026/04/07 18:27:04 by igilbert         ###   ########.fr       */
+/*   Created: 2026/04/07 18:27:09 by igilbert          #+#    #+#             */
+/*   Updated: 2026/04/07 18:27:50 by igilbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SERIALIZER_HPP
-#define SERIALIZER_HPP
+#ifndef DATA_HPP
+#define DATA_HPP
 
 #include <iostream>
-#include <cstdint>
+#include <string>
 
-class Serializer
+struct Data
 {
-	public:
-	static uintptr_t serialize(void* ptr);
-	static void* deserialize(uintptr_t raw);
+	std::string str;
+	int num;
 };
 
 #endif
