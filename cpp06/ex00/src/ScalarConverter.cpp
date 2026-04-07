@@ -6,120 +6,211 @@
 /*   By: igilbert <igilbert@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 15:14:02 by igilbert          #+#    #+#             */
-/*   Updated: 2026/04/07 16:48:36 by igilbert         ###   ########.fr       */
+/*   Updated: 2026/04/07 18:17:57 by igilbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ScalarConverter.hpp"
 
-void parseLiteral(const std::string& literal)
+static std::string trimLeft(const std::string& literal)
 {
-	bool isSpecial = (literal == "nan" || literal == "nanf" || literal == "+inf" || literal == "-inf" || literal == "+inff" || literal == "-inff");
-	bool sign;
-	int hasDecimal = 0;
-	bool isSingleChar;
-	int i = 0;
-	
-	
-	while (std::isspace(literal[i]))
+	size_t i = 0;
+	while (i < literal.length() && std::isspace(static_cast<unsigned char>(literal[i])))
 		i++;
-	isSingleChar = (literal[i + 1] == '\0' || literal[i + 1] == 'f') && std::isprint(literal[i]) && !std::isdigit(literal[i]);
-	if (isSingleChar || isSpecial)
-		return;
-	sign = (literal[i] == '+' || literal[i] == '-');
-	if (sign)
-		i++;
-	while (std::isdigit(literal[i]) || literal[i] == '.' || literal[i] == 'f')
-	{
-		if (literal[i] == '.')
-		{
-			hasDecimal++;
-			if (hasDecimal > 1)
-				throw std::invalid_argument("Invalid literal");
-		}
-		i++;
-	}
-	if (literal[i] != '\0')
-		throw std::invalid_argument("Invalid literal");
-	if (literal.empty())
-		throw std::invalid_argument("Empty literal");
+	return literal.substr(i);
 }
 
-bool isUint(const std::string& literal)
+static bool isSpecialLiteral(const std::string& literal)
 {
-	int i = 0;
-	while (std::isspace(literal[i]))
-		i++;
-	if (literal[i] == '+')
-		i++;
-	while (std::isdigit(literal[i]))
-		i++;
-	if (literal[i] == '\0' || literal[i] == 'f')
-		return true;
+	return (literal == "nan" || literal == "nanf" || literal == "+inf" || literal == "-inf"
+		|| literal == "+inff" || literal == "-inff");
+}
+
+static bool isCharLiteral(const std::string& literal)
+{
+	std::string trimmed = trimLeft(literal);
+
+	return (trimmed.length() == 1
+		&& std::isprint(static_cast<unsigned char>(trimmed[0]))
+		&& !std::isdigit(static_cast<unsigned char>(trimmed[0])));
+}
+
+static bool isIntegerLiteral(const std::string& literal)
+{
+	char* end = NULL;
+	std::string trimmed = trimLeft(literal);
+	long value;
+
+	if (trimmed.empty())
+		return false;
+
+	errno = 0;
+	value = std::strtol(trimmed.c_str(), &end, 10);
+
+	if (end != trimmed.c_str() && errno != ERANGE)
+	{
+		while (*end && std::isspace(static_cast<unsigned char>(*end)))
+			end++;
+		if (*end == '\0' && value >= INT_MIN && value <= INT_MAX)
+			return true;
+	}
+
+	double dvalue = std::strtod(trimmed.c_str(), &end);
+	if (end != trimmed.c_str())
+	{
+		if (dvalue == static_cast<double>(static_cast<int>(dvalue)))
+		{
+			while (*end && std::isspace(static_cast<unsigned char>(*end)))
+				end++;
+			if (*end == '\0' || (*end == 'f' && end[1] == '\0'))
+				return true;
+		}
+	}
 	return false;
+}
+
+void parseLiteral(const std::string& literal)
+{
+	std::string trimmed = trimLeft(literal);
+
+	if (trimmed.empty())
+		throw std::invalid_argument("Empty literal");
+	if (isSpecialLiteral(trimmed) || isCharLiteral(trimmed) || isIntegerLiteral(trimmed))
+		return;
+	if (trimmed[0] == '+' || trimmed[0] == '-' || std::isdigit(static_cast<unsigned char>(trimmed[0])))
+	{
+		char* end = NULL;
+		std::strtod(trimmed.c_str(), &end);
+		if (end == trimmed.c_str())
+			throw std::invalid_argument("Invalid literal");
+		while (*end && std::isspace(static_cast<unsigned char>(*end)))
+			end++;
+		if (*end == '\0' || (*end == 'f' && end[1] == '\0'))
+			return;
+	}
+	throw std::invalid_argument("Invalid literal");
 }
 
 bool displayableChar(const std::string& literal)
 {
-	int i = 0;
-	while (std::isspace(literal[i]))
-		i++;
-	if (literal[i] == '+')
-		i++;
-	if ((literal[i + 1] == '\0' || literal[i + 1] == 'f') && std::isprint(literal[i]) && isUint(literal))
+	std::string trimmed = trimLeft(literal);
+	if (isCharLiteral(trimmed))
 		return true;
-	return false;
+	if (!isIntegerLiteral(trimmed))
+		return false;
+	char* end = NULL;
+	long value = std::strtol(trimmed.c_str(), &end, 10);
+	return (value >= 0 && value <= 127 && std::isprint(static_cast<unsigned char>(value)));
 }
 
 void printChar(const std::string& literal)
 {
-	if (displayableChar(literal))
+	std::string trimmed = trimLeft(literal);
+
+	if (isSpecialLiteral(trimmed))
 	{
-		if (isUint(literal))
-			std::cout << "char: '" << static_cast<char>(std::strtol(literal.c_str(), NULL, 10)) << "'" << std::endl;
-		else
-			std::cout << "char: '" << literal[0] << "'" << std::endl;
+		std::cout << "char: impossible" << std::endl;
+		return;
 	}
-	else
-		std::cout << "char: Non displayable" << std::endl;
+	if (isCharLiteral(trimmed))
+	{
+		std::cout << "char: '" << trimmed[0] << "'" << std::endl;
+		return;
+	}
+	if (isIntegerLiteral(trimmed))
+	{
+		char* end = NULL;
+		long value = std::strtol(trimmed.c_str(), &end, 10);
+
+		if (value < 0 || value > 127)
+			std::cout << "char: impossible" << std::endl;
+		else if (!std::isprint(static_cast<unsigned char>(value)))
+			std::cout << "char: Non displayable" << std::endl;
+		else
+			std::cout << "char: '" << static_cast<char>(value) << "'" << std::endl;
+		return;
+	}
+	std::cout << "char: impossible" << std::endl;
 }
 
 void printFloat(const std::string& literal)
 {
-	try
+	std::string trimmed = trimLeft(literal);
+
+	if (trimmed == "nan" || trimmed == "nanf" || trimmed == "+inf" || trimmed == "+inff"
+		|| trimmed == "-inf" || trimmed == "-inff")
 	{
-		float f = std::strtod(literal.c_str(), NULL);
-		std::cout << "float: " << static_cast<float>(f) << "f" << std::endl;
+		if (trimmed[trimmed.length() - 1] == 'f')
+			std::cout << "float: " << trimmed << std::endl;
+		else
+			std::cout << "float: " << trimmed << "f" << std::endl;
+		return;
 	}
-	catch (const std::exception& e)
+	if (isCharLiteral(trimmed))
 	{
-		std::cout << "float: impossible" << std::endl;
+		std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(trimmed[0]) << "f" << std::endl;
+		return;
+	}
+	{
+		double value = std::strtod(trimmed.c_str(), NULL);
+		float fvalue = static_cast<float>(value);
+		if (fvalue == static_cast<float>(static_cast<int>(fvalue)))
+			std::cout << "float: " << std::fixed << std::setprecision(1) << fvalue << "f" << std::endl;
+		else
+			std::cout << "float: " << fvalue << "f" << std::endl;
 	}
 }
 
 void printDouble(const std::string& literal)
 {
-	try
+	std::string trimmed = trimLeft(literal);
+
+	if (trimmed == "nan" || trimmed == "+inf" || trimmed == "-inf")
 	{
-		double d = std::strtod(literal.c_str(), NULL);
-		std::cout << "double: " << static_cast<double>(d) << std::endl;
+		std::cout << "double: " << trimmed << std::endl;
+		return;
 	}
-	catch (const std::exception& e)
+	if (trimmed == "nanf" || trimmed == "+inff" || trimmed == "-inff")
 	{
-		std::cout << "double: impossible" << std::endl;
+		std::cout << "double: " << trimmed.substr(0, trimmed.length() - 1) << std::endl;
+		return;
+	}
+	if (isCharLiteral(trimmed))
+	{
+		std::cout << "double: " << std::fixed << std::setprecision(1) << static_cast<double>(trimmed[0]) << std::endl;
+		return;
+	}
+	{
+		double value = std::strtod(trimmed.c_str(), NULL);
+		if (value == static_cast<double>(static_cast<int>(value)))
+			std::cout << "double: " << std::fixed << std::setprecision(1) << value << std::endl;
+		else
+			std::cout << "double: " << value << std::endl;
 	}
 }
 
 void printInt(const std::string& literal)
 {
-	try
-	{
-		int i = std::strtol(literal.c_str(), NULL, 10);
-		std::cout << "int: " << static_cast<int>(i) << std::endl;
-	}
-	catch (const std::exception& e)
+	std::string trimmed = trimLeft(literal);
+
+	if (isSpecialLiteral(trimmed))
 	{
 		std::cout << "int: impossible" << std::endl;
+		return;
+	}
+	if (isCharLiteral(trimmed))
+	{
+		std::cout << "int: " << static_cast<int>(static_cast<unsigned char>(trimmed[0])) << std::endl;
+		return;
+	}
+	{
+		double dvalue = std::strtod(trimmed.c_str(), NULL);
+		if (dvalue < static_cast<double>(INT_MIN) || dvalue > static_cast<double>(INT_MAX))
+		{
+			std::cout << "int: impossible" << std::endl;
+			return;
+		}
+		std::cout << "int: " << static_cast<int>(dvalue) << std::endl;
 	}
 }
 

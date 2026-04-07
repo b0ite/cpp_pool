@@ -1,4 +1,4 @@
-TARGET = ex00
+TARGET = convert
 SRCS = src/ScalarConverter.cpp src/main.cpp
 OBJS = $(SRCS:.cpp=.o)
 

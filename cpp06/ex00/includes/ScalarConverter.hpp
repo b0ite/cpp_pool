@@ -6,7 +6,7 @@
 /*   By: igilbert <igilbert@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 15:14:06 by igilbert          #+#    #+#             */
-/*   Updated: 2026/04/07 16:16:37 by igilbert         ###   ########.fr       */
+/*   Updated: 2026/04/07 18:18:12 by igilbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 
 #include <iostream>
 #include <string>
-#include <limits>
 #include <cctype>
+#include <cerrno>
+#include <climits>
+#include <cstdlib>
+#include <iomanip>
 
 
 class ScalarConverter
