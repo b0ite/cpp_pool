@@ -3,7 +3,7 @@ TARGET = ex02
 SRC = main.cpp
 OBJ = $(SRC:.cpp=.o)
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -std=c++98
 CCXX = c++
 
 all: $(TARGET)
